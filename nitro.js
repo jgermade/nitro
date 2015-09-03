@@ -156,7 +156,7 @@ var nitro = {
   timestamp: timestamp,
   timingSync: timingSync,
   jshint: launchJShint,
-  loadFiles: function ( globSrc ) {
+  load: function ( globSrc ) {
     return new GlobFiles(globSrc);
   },
   fileProcessor: function (methodName, processor, isCollection) {
