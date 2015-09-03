@@ -150,12 +150,20 @@ GlobFiles.prototype.writeFile = function (destFile) {
   return this;
 };
 
+function copyFiles (globSrc, dest, options) {
+  glob.sync(globSrc, options).forEach(function (filePath) {
+    file.copy( path.join(options.cwd || '.', filePath) , path.join(dest || '.', filePath) );
+  });
+  return nitro;
+}
+
 var nitro = {
   cwd: cwd,
   exec: exec,
   glob: glob,
   dir: dir,
   file: file,
+  copy: copyFiles,
   timestamp: timestamp,
   timingSync: timingSync,
   jshint: launchJShint,
