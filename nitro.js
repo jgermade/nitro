@@ -35,6 +35,12 @@ var file = {
       }
     };
 
+function cwd () {
+  var paths = [process.cwd()];
+  [].push.apply(paths, arguments);
+  return path.join.apply(null, paths );
+}
+
 function exec(cmd, args, onData, onEnd) {
     // var child = spawn(cmd, args || []),
     //     me = this;
@@ -134,6 +140,7 @@ GlobFiles.prototype.writeFile = function (destFile) {
 };
 
 module.exports = {
+  cwd: cwd,
   exec: exec,
   glob: glob,
   dir: dir,
