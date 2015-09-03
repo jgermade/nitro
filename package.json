@@ -1,0 +1,26 @@
+{
+  "name": "nitro-shell",
+  "version": "1.0.0",
+  "description": "node file and shell utils",
+  "main": "nitro.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/jstools/nitro-shell.git"
+  },
+  "keywords": [
+    "node",
+    "files",
+    "shell",
+    "batch",
+    "processor"
+  ],
+  "author": "Jesús Germade <jesus@germade.es>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jstools/nitro-shell/issues"
+  },
+  "homepage": "https://github.com/jstools/nitro-shell#readme"
+}
