@@ -25,6 +25,7 @@
   "homepage": "https://github.com/jstools/nitro-shell#readme",
   "dependencies": {
     "glob": "^5.0.14",
+    "jshint": "^2.9.0",
     "shelljs": "^0.5.3"
   }
 }
