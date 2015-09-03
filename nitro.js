@@ -147,7 +147,7 @@ GlobFiles.prototype.writeFile = function (destFile) {
   return this;
 };
 
-module.exports = {
+var nitro = {
   cwd: cwd,
   exec: exec,
   glob: glob,
@@ -156,24 +156,28 @@ module.exports = {
   timestamp: timestamp,
   timingSync: timingSync,
   jshint: launchJShint,
-  src: function ( globSrc ) {
+  loadFiles: function ( globSrc ) {
     return new GlobFiles(globSrc);
   },
-  processorEach: function (methodName, processor) {
-    GlobFiles.prototype[methodName] = function () {
-      var files = new GlobFiles();
+  fileProcessor: function (methodName, processor, isCollection) {
+    if( isCollection ) {
+      GlobFiles.prototype[methodName] = function () {
+        return new GlobFiles( processor(this) || [] );
+      };
+    } else {
+      GlobFiles.prototype[methodName] = function () {
+        var files = new GlobFiles();
 
-      for( var i = 0, n = this.length; i < n ; i++ ) {
-        files[i] = new GlobFile(processor(this[i].src), this[i]);
-      }
+        for( var i = 0, n = this.length; i < n ; i++ ) {
+          files[i] = new GlobFile(processor(this[i].src), this[i]);
+        }
 
-      files.length = n;
-      return files;
-    };
-  },
-  processorBatch: function (methodName, processor) {
-    GlobFiles.prototype[methodName] = function () {
-      return new GlobFiles( processor(this) || [] );
-    };
+        files.length = n;
+        return files;
+      };
+    }
+    return nitro;
   }
 };
+
+module.exports = nitro;
