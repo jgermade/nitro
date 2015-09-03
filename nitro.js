@@ -88,7 +88,7 @@ function GlobFile (src, data) {
 
     this.fileName = ( matches && matches[2] ) || src;
     this.filePath = ( matches && matches[1] ) || null;
-    this.src = file.read(filePath);
+    this.src = file.read(src);
   } else if( data && data.fileName ) {
     this.fileName = data.fileName;
     this.filePath = data.filePath;
@@ -105,8 +105,6 @@ function GlobFiles (src) {
     [].push.apply(this, glob.sync(src).map(fileByName) );
   } else if ( src instanceof Array ) {
     [].push.apply(this, src);
-  } else {
-    throw new Error('src should be a string or an array');
   }
 }
 
@@ -165,6 +163,6 @@ module.exports = {
   processorBatch: function (methodName, processor) {
     GlobFiles.prototype[methodName] = function () {
       return new GlobFiles( processor(this) || [] );
-    }
+    };
   }
 };
