@@ -1,5 +1,6 @@
 
-var glob = require('glob'),
+var colors = require('colors'),
+    glob = require('glob'),
     fs = require('fs'),
     path = require('path'),
     JSHINT = require('jshint').JSHINT,
@@ -139,7 +140,9 @@ GlobFiles.prototype.concat = function (fileName) {
 };
 
 GlobFiles.prototype.write = function (dest) {
-
+  this.forEach(function (file) {
+    file.write( path.join(dest, file.filePath, file.fileName), this.src );
+  });
 };
 
 GlobFiles.prototype.writeFile = function (destFile) {
@@ -166,10 +169,11 @@ var nitro = {
       };
     } else {
       GlobFiles.prototype[methodName] = function () {
-        var files = new GlobFiles();
+        var files = new GlobFiles(), f;
 
         for( var i = 0, n = this.length; i < n ; i++ ) {
-          files[i] = new GlobFile(processor(this[i].src), this[i]);
+          f = this[i];
+          files[i] = new GlobFile('' + processor(f.src, f.fileName, f.filePath), f);
         }
 
         files.length = n;
