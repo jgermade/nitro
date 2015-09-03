@@ -2,8 +2,9 @@
 var glob = require('glob'),
     fs = require('fs'),
     path = require('path'),
-    childProcess = require('child_process'),
-    spawn = childProcess.spawn,
+    // childProcess = require('child_process'),
+    // spawn = childProcess.spawn,
+    shell = require('shelljs'),
     noop = function () {};
 
 var file = {
@@ -35,23 +36,25 @@ var file = {
     };
 
 function exec(cmd, args, onData, onEnd) {
-    var child = spawn(cmd, args || []),
-        me = this;
+    // var child = spawn(cmd, args || []),
+    //     me = this;
+    //
+    // if( args instanceof Function ) {
+    //   onEnd = onData || noop;
+    //   onData = args || noop;
+    //   args = {};
+    // } else {
+    //   onData = onData || noop;
+    //   onEnd = onEnd || noop;
+    // }
+    //
+    // child.stdout.on('data', function (buffer) {
+    //   onData(me, buffer);
+    // });
+    //
+    // child.stdout.on('end', onEnd);
 
-    if( args instanceof Function ) {
-      onEnd = onData || noop;
-      onData = args || noop;
-      args = {};
-    } else {
-      onData = onData || noop;
-      onEnd = onEnd || noop;
-    }
-
-    child.stdout.on('data', function (buffer) {
-      onData(me, buffer);
-    });
-
-    child.stdout.on('end', onEnd);
+    return shell.exec(cmd);
 }
 
 function timestamp () {
@@ -132,6 +135,7 @@ GlobFiles.prototype.writeFile = function (destFile) {
 
 module.exports = {
   exec: exec,
+  glob: glob,
   dir: dir,
   file: file,
   timestamp: timestamp,

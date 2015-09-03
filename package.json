@@ -1,6 +1,6 @@
 {
   "name": "nitro-shell",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "node file and shell utils",
   "main": "nitro.js",
   "scripts": {
@@ -22,5 +22,9 @@
   "bugs": {
     "url": "https://github.com/jstools/nitro-shell/issues"
   },
-  "homepage": "https://github.com/jstools/nitro-shell#readme"
+  "homepage": "https://github.com/jstools/nitro-shell#readme",
+  "dependencies": {
+    "glob": "^5.0.14",
+    "shelljs": "^0.5.3"
+  }
 }
