@@ -2,6 +2,7 @@
 var glob = require('glob'),
     fs = require('fs'),
     path = require('path'),
+    JSHINT = require('jshint').JSHINT,
     // childProcess = require('child_process'),
     // spawn = childProcess.spawn,
     shell = require('shelljs'),
@@ -41,27 +42,36 @@ function cwd () {
   return path.join.apply(null, paths );
 }
 
-function exec(cmd, args, onData, onEnd) {
-    // var child = spawn(cmd, args || []),
-    //     me = this;
-    //
-    // if( args instanceof Function ) {
-    //   onEnd = onData || noop;
-    //   onData = args || noop;
-    //   args = {};
-    // } else {
-    //   onData = onData || noop;
-    //   onEnd = onEnd || noop;
-    // }
-    //
-    // child.stdout.on('data', function (buffer) {
-    //   onData(me, buffer);
-    // });
-    //
-    // child.stdout.on('end', onEnd);
-
+function exec(cmd) {
     return shell.exec(cmd);
 }
+
+function launchJShint (src, jshintrc) {
+  var errorsLog = '';
+
+  glob.sync(src).forEach(function (fileName) {
+    JSHINT( file.read(fileName).split(/\n/), jshintrc );
+    var res = JSHINT.data();
+
+    if( res.errors ) {
+      var fileLog = fileName.cyan + '\n';
+      res.errors.forEach(function (err) {
+        if( err === null ) {
+          return;
+        }
+        fileLog += '  line ' + (err.line + '').yellow + ', col ' + (err.character + '').cyan + ', ' + err.reason.yellow + '\n';
+      });
+
+      errorsLog += fileLog;
+    }
+  });
+
+  return {
+    valid: !errorsLog,
+    log: errorsLog
+  };
+}
+
 
 function timestamp () {
   return new Date().getTime();
@@ -145,6 +155,7 @@ module.exports = {
   file: file,
   timestamp: timestamp,
   timingSync: timingSync,
+  jshint: launchJShint,
   src: function ( globSrc ) {
     return new GlobFiles(globSrc);
   },
