@@ -1,6 +1,6 @@
 {
   "name": "nitro-tools",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "node file and shell utils",
   "main": "nitro.js",
   "scripts": {
@@ -25,8 +25,8 @@
   "homepage": "https://github.com/jstools/nitro-shell#readme",
   "dependencies": {
     "glob": "^5.0.14",
-    "jshint": "^2.9.0",
-    "jstools-utils": "0.0.23",
+    "jshint": "^2.8.0",
+    "jstools-utils": "^0.0.23",
     "minimatch": "^2.0.10",
     "shelljs": "^0.5.3"
   },
