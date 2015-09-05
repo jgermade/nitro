@@ -249,7 +249,7 @@ GlobFiles.prototype.write = function (dest, rename) {
 };
 
 GlobFiles.prototype.writeFile = function (destFile) {
-  file.write( destFile, this.concat() );
+  file.write( destFile, this.concat(true) );
   return this;
 };
 
@@ -297,7 +297,7 @@ module.exports = _.extend(nitro, {
     return new GlobFiles(globSrc, options);
   },
   autoLoad: loadPresets,
-  requireLibs: function () {
+  require: function () {
     requireLibs( [].slice.call(arguments) );
   },
   fileProcessor: function (methodName, processor, isCollection, requirements) {
