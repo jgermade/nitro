@@ -24,11 +24,12 @@
   },
   "homepage": "https://github.com/jstools/nitro-shell#readme",
   "dependencies": {
+    "deasync": "^0.1.1",
     "glob": "^5.0.14",
     "jshint": "^2.8.0",
     "jstools-utils": "^0.0.23",
     "minimatch": "^2.0.10",
-    "shelljs": "^0.5.3"
+    "mkdirp": "^0.5.1"
   },
   "devDependencies": {
     "colors": "^1.1.2"

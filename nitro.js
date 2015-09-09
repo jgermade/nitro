@@ -6,12 +6,29 @@ var nitro = {},
     mmatch = require('minimatch'),
     Minimatch = mmatch.Minimatch,
     fs = require('fs'),
+    mkdirp = require('mkdirp'),
     path = require('path'),
     JSHINT = require('jshint').JSHINT,
-    // childProcess = require('child_process'),
-    // spawn = childProcess.spawn,
-    shell = require('shelljs'),
+    deasync = require('deasync'),
     noop = function (value) { return value; };
+
+var RE_filePath = /(.*)\/([^\/]+)/;
+
+function parsePath (filePath) {
+  var matches = filePath.match(RE_filePath);
+
+  return {
+    fileName: ( matches && matches[2] ) || filePath,
+    filePath: ( matches && matches[1] ) || null
+  };
+}
+
+function copyFiles (cwd, globSrc, dest, options) {
+  glob.sync(globSrc, _.extend( options || {}, cwd ? { cwd: cwd } : undefined ) ).forEach(function (filePath) {
+    file.copy( path.join(cwd || options.cwd || '.', filePath) , path.join(dest || '.', filePath) );
+  });
+  return nitro;
+}
 
 var file = {
       read: function () {
@@ -27,23 +44,19 @@ var file = {
         return file.write( paths, JSON.stringify(data, null, '\t') );
       },
       copy: function (src, dest) {
+        mkdirp(parsePath(dest).filePath);
         return fs.createReadStream(src).pipe( fs.createWriteStream(dest) );
       }
     },
     dir = {
       create: function (dirPath) {
-        if( !fs.existsSync(dirPath) ) {
-            fs.mkdirSync(dirPath);
-        }
+        mkdirp(dirPath);
       },
       exists: function (dirPath) {
         return fs.existsSync(dirPath);
       }
-    };
-
-function exec(cmd) {
-    return shell.exec(cmd);
-}
+    },
+    exec = deasync(require('child_process').exec);
 
 function launchJShint (src, jshintrc) {
   var errorsLog = '';
@@ -76,7 +89,7 @@ function timestamp () {
   return new Date().getTime();
 }
 
-function timingSync ( dest, fn ) {
+function timingLog ( dest, fn ) {
   if( dest instanceof Function ) {
     fn = dest;
     dest = null;
@@ -91,7 +104,6 @@ function timingSync ( dest, fn ) {
   return timestamp() - start;
 }
 
-
 var processors = {},
     presets = {},
     requireLibs = function (requirements) {
@@ -101,18 +113,18 @@ var processors = {},
         }
       });
     },
-    addPreset = function (processorKey, processor, isCollection, requirements) {
+    addPreset = function (processorKey, processor, processAsBatch, requirements) {
       presets[processorKey] = function () {
         if( requirements && requirements.length ) {
           requireLibs(requirements);
 
           if( !processors[processorKey] ) {
-            nitro.fileProcessor(processorKey, processor, isCollection);
+            nitro.fileProcessor(processorKey, processor, processAsBatch);
           }
         }
       };
     },
-    loadPresets = function () {
+    loadProcessors = function () {
       [].forEach.call(arguments, function (preset) {
         if( !presets[preset] ) {
           throw new Error('preset not found: ' + preset);
@@ -127,22 +139,21 @@ addPreset('log', function (src, fileName, filePath) {
   return src;
 });
 
-addPreset('sass', function (src) {
+addPreset('sass', function (src, options) {
   return require('node-sass').renderSync({ data: src }).css;
 }, false, ['node-sass']);
 
-addPreset('uglify', function (src) {
+addPreset('uglify', function (src, options) {
   return require('uglify-js').minify(src, { fromString: true }).code;
 }, false, ['uglify-js']);
 
-function parsePath (filePath) {
-  var matches = filePath.match(/(.*)\/([^\/]+)/);
-
-  return {
-    fileName: ( matches && matches[2] ) || filePath,
-    filePath: ( matches && matches[1] ) || null
-  };
-}
+addPreset('less', function (src, options) {
+  return deasync(function (done) {
+    require('less').render(src, options || {}, function (e, output) {
+       done(output.css);
+    });
+  });
+}, false, ['less']);
 
 function GlobFile (src, data) {
   if( data && data.fileName ) {
@@ -253,13 +264,6 @@ GlobFiles.prototype.writeFile = function (destFile) {
   return this;
 };
 
-function copyFiles (cwd, globSrc, dest, options) {
-  glob.sync(globSrc, _.extend( options || {}, cwd ? { cwd: cwd } : undefined ) ).forEach(function (filePath) {
-    file.copy( path.join(cwd || options.cwd || '.', filePath) , path.join(dest || '.', filePath) );
-  });
-  return nitro;
-}
-
 function CwdPath () {
   var pcwd = path.join.apply(null, [].slice.call(arguments) );
 
@@ -283,46 +287,49 @@ getCwd.path = function () {
   return path.join.apply(null, [process.cwd()].concat( [].slice.call(arguments) ) );
 };
 
+function fileProcessor (methodName, processor, processAsBatch, requirements) {
+  if( requirements ) {
+    requireLibs(requirements);
+  }
+
+  if( processAsBatch ) {
+    processors[methodName] = function () {
+      return new GlobFiles( processor(this) || [] );
+    };
+  } else {
+    processors[methodName] = function () {
+      var files = new GlobFiles(), f;
+
+      for( var i = 0, n = this.length; i < n ; i++ ) {
+        f = this[i];
+        files[i] = new GlobFile('' + processor(f.src, f.fileName, f.filePath), f);
+      }
+
+      files.length = n;
+      return files;
+    };
+  }
+  // GlobFiles.prototype[methodName] = processors[methodName];
+  return nitro;
+}
+
 module.exports = _.extend(nitro, {
   cwd: getCwd,
   exec: exec,
   glob: glob,
+  deasync: deasync,
   dir: dir,
   file: file,
   copy: copyFiles,
   timestamp: timestamp,
-  timingSync: timingSync,
+  timingLog: timingLog,
   jshint: launchJShint,
   load: function ( globSrc, options ) {
     return new GlobFiles(globSrc, options);
   },
-  autoLoad: loadPresets,
+  loadProcessors: loadProcessors,
   require: function () {
-    requireLibs( [].slice.call(arguments) );
+    return requireLibs( [].slice.call(arguments) );
   },
-  fileProcessor: function (methodName, processor, isCollection, requirements) {
-    if( requirements ) {
-      requireLibs(requirements);
-    }
-
-    if( isCollection ) {
-      processors[methodName] = function () {
-        return new GlobFiles( processor(this) || [] );
-      };
-    } else {
-      processors[methodName] = function () {
-        var files = new GlobFiles(), f;
-
-        for( var i = 0, n = this.length; i < n ; i++ ) {
-          f = this[i];
-          files[i] = new GlobFile('' + processor(f.src, f.fileName, f.filePath), f);
-        }
-
-        files.length = n;
-        return files;
-      };
-    }
-    // GlobFiles.prototype[methodName] = processors[methodName];
-    return nitro;
-  }
+  fileProcessor: fileProcessor
 });
