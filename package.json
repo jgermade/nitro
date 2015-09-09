@@ -1,6 +1,6 @@
 {
   "name": "nitro-tools",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "node file and shell utils",
   "main": "nitro.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/jstools/nitro-shell.git"
+    "url": "git+ssh://git@github.com/jstools/nitro-tools.git"
   },
   "keywords": [
     "node",
@@ -20,13 +20,13 @@
   "author": "Jesús Germade <jesus@germade.es>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jstools/nitro-shell/issues"
+    "url": "https://github.com/jstools/nitro-tools/issues"
   },
-  "homepage": "https://github.com/jstools/nitro-shell#readme",
+  "homepage": "https://github.com/jstools/nitro-tools#readme",
   "dependencies": {
     "deasync": "^0.1.1",
     "glob": "^5.0.14",
-    "jstools-utils": "^0.0.23",
+    "jengine-utils": "^0.0.23",
     "minimatch": "^2.0.10",
     "mkdirp": "^0.5.1"
   },

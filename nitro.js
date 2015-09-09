@@ -1,6 +1,6 @@
 
 var nitro = {},
-    _ = require('jstools-utils'),
+    _ = require('jengine-utils'),
     colors = require('colors'),
     glob = require('glob'),
     path = require('path'),
