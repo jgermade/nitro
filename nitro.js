@@ -11,9 +11,10 @@ var file = require('./file'),
     dir = require('./dir'),
     exec = deasync(require('child_process').exec),
     Files = require('./class-files'),
+    File = require('./class-file'),
     timing = require('./timing');
 
-var processors = {};
+var processors = require('./processors'),
     requireLibs = function (requirements) {
       requirements.forEach(function (libName) {
         if( !dir.exists('node_modules/' + libName) ) {
@@ -37,7 +38,7 @@ function fileProcessor (methodName, processor, processAsBatch, requirements) {
 
       for( var i = 0, n = this.length; i < n ; i++ ) {
         f = this[i];
-        files[i] = new GlobFile('' + processor(f.src, f.fileName, f.filePath), f);
+        files[i] = new File('' + processor(f.src, f.fileName, f.filePath), f);
       }
 
       files.length = n;

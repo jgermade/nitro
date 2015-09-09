@@ -1,6 +1,9 @@
 'use strict';
 
-var fs = require('fs'),
+var _ = require('jstools-utils'),
+    fs = require('fs'),
+    path = require('path'),
+    glob = require('glob'),
     mkdirp = require('mkdirp'),
     file = require('./file');
 
@@ -18,6 +21,8 @@ module.exports = {
     }
 
     glob.sync(globSrc, _.extend( options || {}, cwd ? { cwd: cwd } : undefined ) ).forEach(function (filePath) {
+      // console.log('dir.copy', filePath );
+      // console.log('\t', path.join(cwd || options.cwd || '.', filePath), path.join(dest || '.', filePath) );
       file.copy( path.join(cwd || options.cwd || '.', filePath) , path.join(dest || '.', filePath) );
     });
   }

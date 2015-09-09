@@ -7,6 +7,7 @@ var glob = require('glob'),
     Minimatch = mmatch.Minimatch,
     file = require('./file'),
     File = require('./class-file'),
+    processors = require('./processors'),
     noop = function (value) { return value; };
 
 function Files (src, options) {
@@ -15,7 +16,7 @@ function Files (src, options) {
 
   if( typeof src === 'string' ) {
     [].push.apply( this, glob.sync(src, options || {}).map(function (filePath) {
-      return new File( file.read( path.join(cwd, filePath) ), parsePath(filePath) );
+      return new File( file.read( path.join(cwd, filePath) ), file.parsePath(filePath) );
     }) );
   } else if ( src instanceof Array ) {
     [].push.apply(this, src);
@@ -56,7 +57,7 @@ Files.prototype.concat = function (filter, filePath) {
   if( filePath !== true ) {
     var files = new Files();
 
-    files.push( new File(this.concat(true), parsePath(filePath) ) );
+    files.push( new File(this.concat(true), file.parsePath(filePath) ) );
     return files;
   } else {
     return this.map(getFileSrc).join('');

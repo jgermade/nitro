@@ -36,7 +36,7 @@ module.exports = function (nitro) {
 
       if( res.errors ) {
         var fileLog = path.join(file.filePath, file.fileName).cyan + '\n';
-        
+
         res.errors.forEach(function (err) {
           if( err === null ) {
             return;
@@ -62,32 +62,5 @@ module.exports = function (nitro) {
     return result;
 
   }, true, ['jshint', 'colors']);
-
-
-function launchJShint (src, jshintrc) {
-  var errorsLog = '';
-
-  glob.sync(src).forEach(function (fileName) {
-    JSHINT( file.read(fileName).split(/\n/), jshintrc );
-    var res = JSHINT.data();
-
-    if( res.errors ) {
-      var fileLog = fileName.cyan + '\n';
-      res.errors.forEach(function (err) {
-        if( err === null ) {
-          return;
-        }
-        fileLog += '  line ' + (err.line + '').yellow + ', col ' + (err.character + '').cyan + ', ' + err.reason.yellow + '\n';
-      });
-
-      errorsLog += fileLog;
-    }
-  });
-
-  return {
-    valid: !errorsLog,
-    log: errorsLog
-  };
-}
 
 };

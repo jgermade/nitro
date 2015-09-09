@@ -1,8 +1,8 @@
 'use strict';
 
 var fs = require('fs'),
+    path = require('path'),
     mkdirp = require('mkdirp'),
-    file = require('./file'),
     RE_filePath = /(.*)\/([^\/]+)/;
 
 function parsePath (filePath) {
@@ -14,7 +14,7 @@ function parsePath (filePath) {
   };
 }
 
-module.exports = {
+var file = {
   read: function () {
     return fs.readFileSync( path.join.apply(null, arguments), { encoding: 'utf8' });
   },
@@ -28,8 +28,13 @@ module.exports = {
     return file.write( paths, JSON.stringify(data, null, '\t') );
   },
   copy: function (src, dest) {
-    mkdirp( parsePath(dest).filePath );
+    var filePath = parsePath(dest).filePath;
+    if( filePath ) {
+      mkdirp(filePath);
+    }
     return fs.createReadStream(src).pipe( fs.createWriteStream(dest) );
   },
   parsePath: parsePath
 };
+
+module.exports = file;
