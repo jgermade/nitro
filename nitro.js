@@ -29,8 +29,8 @@ function fileProcessor (methodName, processor, processAsBatch, requirements) {
   }
 
   if( processAsBatch ) {
-    processors[methodName] = function () {
-      return new Files( processor(this) || [] );
+    processors[methodName] = function (options) {
+      return new Files( processor(this, options) || [] );
     };
   } else {
     processors[methodName] = function () {

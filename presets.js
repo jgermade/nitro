@@ -31,7 +31,7 @@ module.exports = function (nitro) {
         colors = require('colors');
 
     batchFiles.forEach(function (file) {
-      JSHINT( file.src.split(/\n/), jshintrc );
+      JSHINT( file.src.split(/\n/), options.jshintrc );
       var res = JSHINT.data();
 
       if( res.errors ) {
@@ -55,11 +55,15 @@ module.exports = function (nitro) {
 
     if( errorsLog ) {
       console.log( '\nJSHINT ERRORS'.red + '\n', errorsLog );
+      
+      if( options.onError instanceof Function ) {
+        options.onError(result);
+      }
     } else {
       console.log('\nJSHINT PASSED\n'.green);
     }
 
-    return result;
+    return batchFiles;
 
   }, true, ['jshint', 'colors']);
 

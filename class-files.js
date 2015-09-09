@@ -35,14 +35,12 @@ Files.prototype.add = function (files) {
   return this;
 };
 
-Files.prototype.process = function (processorKey) {
+Files.prototype.process = function (processorKey, options) {
   if( !processors[processorKey] ) {
     throw new Error('file processor missing: ' + processorKey);
   }
 
-  // console.log('processor', processorKey, processors[processorKey], this);
-
-  return processors[processorKey].call(this);
+  return processors[processorKey].call(this, options);
 };
 
 Files.prototype.concat = function (filter, filePath) {
