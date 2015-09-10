@@ -9,7 +9,7 @@ var _ = require('jengine-utils'),
 
 module.exports = {
   create: function (dirPath) {
-    mkdirp(dirPath);
+    mkdirp.sync(dirPath);
   },
   exists: function (dirPath) {
     return fs.existsSync(dirPath);
@@ -25,5 +25,8 @@ module.exports = {
       // console.log('\t', path.join(cwd || options.cwd || '.', filePath), path.join(dest || '.', filePath) );
       file.copy( path.join(cwd || options.cwd || '.', filePath) , path.join(dest || '.', filePath) );
     });
+  },
+  matchFiles: function (pattern, options) {
+    return glob.sync(pattern, options);
   }
 };

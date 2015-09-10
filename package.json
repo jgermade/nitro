@@ -28,9 +28,9 @@
     "glob": "^5.0.14",
     "jengine-utils": "^0.0.23",
     "minimatch": "^2.0.10",
-    "mkdirp": "^0.5.1"
-  },
-  "devDependencies": {
+    "mkdirp": "^0.5.1",
+    "nitro-server": "^1.0.1",
     "colors": "^1.1.2"
-  }
+  },
+  "devDependencies": {}
 }

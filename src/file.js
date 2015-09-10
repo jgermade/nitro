@@ -1,8 +1,11 @@
 'use strict';
 
-var fs = require('fs'),
+var _ = require('jengine-utils'),
+    fs = require('fs'),
     path = require('path'),
     mkdirp = require('mkdirp'),
+    deasync = require('deasync'),
+    exec = deasync( require('child_process').exec ),
     RE_filePath = /(.*)\/([^\/]+)/;
 
 function parsePath (filePath) {
@@ -21,8 +24,15 @@ var file = {
   readJSON: function () {
     return JSON.parse( file.read.apply(this, arguments) );
   },
-  write: function (paths, text) {
-    return fs.writeFileSync( typeof paths === 'string' ? paths : path.join(paths), text, { encoding: 'utf8' });
+  write: function (paths, content, options) {
+    var dest = typeof paths === 'string' ? paths : path.join(paths),
+        filePath = parsePath(dest).filePath;
+
+
+    if( filePath ) {
+      mkdirp.sync(filePath);
+    }
+    return fs.writeFileSync(dest , content, _.extend({ encoding: 'utf8' }, options || {}) );
   },
   writeJSON: function (paths, data) {
     return file.write( paths, JSON.stringify(data, null, '\t') );
@@ -30,7 +40,7 @@ var file = {
   copy: function (src, dest) {
     var filePath = parsePath(dest).filePath;
     if( filePath ) {
-      mkdirp(filePath);
+      mkdirp.sync(filePath);
     }
     return fs.createReadStream(src).pipe( fs.createWriteStream(dest) );
   },

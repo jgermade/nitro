@@ -2,7 +2,7 @@
 module.exports = function (nitro) {
 
   nitro.addPreset('log', function (src, fileName, filePath) {
-    console.log('fileLog', src, fileName, filePath);
+    console.log('fileLog', filePath, fileName);
     return src;
   });
 
@@ -55,7 +55,7 @@ module.exports = function (nitro) {
 
     if( errorsLog ) {
       console.log( '\nJSHINT ERRORS'.red + '\n', errorsLog );
-      
+
       if( options.onError instanceof Function ) {
         options.onError(result);
       }

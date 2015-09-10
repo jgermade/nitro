@@ -2,73 +2,27 @@
 var nitro = {},
     _ = require('jengine-utils'),
     colors = require('colors'),
-    glob = require('glob'),
-    path = require('path'),
     deasync = require('deasync'),
     noop = function (value) { return value; };
 
 var file = require('./file'),
     dir = require('./dir'),
-    exec = deasync(require('child_process').exec),
-    Files = require('./class-files'),
     File = require('./class-file'),
-    timing = require('./timing');
+    Files = require('./class-files'),
+    timing = require('./timing'),
+    processors = require('./processors'),
+    tasks = require('./tasks');
 
-var processors = require('./processors'),
-    requireLibs = function (requirements) {
-      requirements.forEach(function (libName) {
-        if( !dir.exists('node_modules/' + libName) ) {
-          exec('npm install ' + libName);
-        }
-      });
-    };
-
-function fileProcessor (methodName, processor, processAsBatch, requirements) {
-  if( requirements && requirements.length ) {
-    requireLibs(requirements);
-  }
-
-  if( processAsBatch ) {
-    processors[methodName] = function (options) {
-      return new Files( processor(this, options) || [] );
-    };
-  } else {
-    processors[methodName] = function () {
-      var files = new Files(), f;
-
-      for( var i = 0, n = this.length; i < n ; i++ ) {
-        f = this[i];
-        files[i] = new File('' + processor(f.src, f.fileName, f.filePath), f);
-      }
-
-      files.length = n;
-      return files;
-    };
-  }
-  // Files.prototype[methodName] = processors[methodName];
-  return nitro;
+function returnNitro (fn) {
+  return function () {
+    fn.apply(this, arguments);
+    return nitro;
+  };
 }
-
-var presets = {},
-    addPreset = function (processorKey, processor, processAsBatch, requirements) {
-      presets[processorKey] = function () {
-        nitro.fileProcessor(processorKey, processor, processAsBatch, requirements);
-      };
-    },
-    loadProcessors = function () {
-      [].forEach.call(arguments, function (preset) {
-        if( !presets[preset] ) {
-          throw new Error('preset not found: ' + preset);
-        }
-
-        presets[preset]();
-      });
-    };
 
 _.extend(nitro, {
   cwd: require('./cwd'),
-  exec: exec,
-  glob: glob,
+  exec: deasync( require('child_process').exec ),
   deasync: deasync,
   dir: dir,
   file: file,
@@ -81,12 +35,25 @@ _.extend(nitro, {
   load: function ( globSrc, options ) {
     return new Files(globSrc, options);
   },
-  addPreset: addPreset,
-  loadProcessors: loadProcessors,
+  addPreset: returnNitro( processors.addPreset ),
+  loadProcessors: returnNitro( processors.loadPresets ),
   require: function () {
-    return requireLibs( [].slice.call(arguments) );
+    requireLibs( [].slice.call(arguments) );
+    return nitro;
   },
-  fileProcessor: fileProcessor
+  fileProcessor: processors.register,
+  serve: function () {
+    return require('nitro-server').start.apply(this, arguments);
+  },
+  task: tasks.register,
+  run: function () {
+    if( process.argv.length < 3 ) {
+      console.error('needs at least 1 argument');
+      process.exit(1);
+    }
+
+    tasks.process( [].slice.call(process.argv, 2) );
+  }
 });
 
 require('./presets')(nitro);

@@ -7,7 +7,6 @@ var glob = require('glob'),
     Minimatch = mmatch.Minimatch,
     file = require('./file'),
     File = require('./class-file'),
-    processors = require('./processors'),
     noop = function (value) { return value; };
 
 function Files (src, options) {
@@ -35,13 +34,7 @@ Files.prototype.add = function (files) {
   return this;
 };
 
-Files.prototype.process = function (processorKey, options) {
-  if( !processors[processorKey] ) {
-    throw new Error('file processor missing: ' + processorKey);
-  }
-
-  return processors[processorKey].call(this, options);
-};
+// Files.prototype.process > defined in processors.js
 
 Files.prototype.concat = function (filter, filePath) {
   if( !filePath ) {
