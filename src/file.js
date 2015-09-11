@@ -4,6 +4,8 @@ var _ = require('jengine-utils'),
     fs = require('fs'),
     path = require('path'),
     mkdirp = require('mkdirp'),
+    mmatch = require('minimatch'),
+    Minimatch = mmatch.Minimatch,
     deasync = require('deasync'),
     exec = deasync( require('child_process').exec ),
     RE_filePath = /(.*)\/([^\/]+)/;
@@ -44,7 +46,21 @@ var file = {
     }
     return fs.createReadStream(src).pipe( fs.createWriteStream(dest) );
   },
-  parsePath: parsePath
+  parsePath: parsePath,
+  filter: function (filter) {
+    if( typeof filter === 'string' ) {
+      return mmatch.filter(filter);
+    } else if( filter instanceof Array ) {
+      filter = filter.map(file.filter);
+
+      return function (filePath) {
+        return filter.every(function (fileFilter) {
+          return fileFilter(filePath);
+        });
+      };
+    }
+    return null;
+  }
 };
 
 module.exports = file;

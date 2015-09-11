@@ -34,6 +34,11 @@ Files.prototype.add = function (files) {
   return this;
 };
 
+Files.prototype.load = function (filter) {
+  this.add( new Files(filter) );
+  return this;
+};
+
 // Files.prototype.process > defined in processors.js
 
 Files.prototype.concat = function (filter, filePath) {

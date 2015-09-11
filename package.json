@@ -1,6 +1,6 @@
 {
   "name": "nitro-tools",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "node file and shell utils",
   "main": "src/nitro.js",
   "scripts": {
@@ -24,13 +24,14 @@
   },
   "homepage": "https://github.com/jstools/nitro-tools#readme",
   "dependencies": {
+    "colors": "^1.1.2",
     "deasync": "^0.1.1",
     "glob": "^5.0.14",
     "jengine-utils": "^0.0.23",
     "minimatch": "^2.0.10",
     "mkdirp": "^0.5.1",
     "nitro-server": "^1.0.1",
-    "colors": "^1.1.2"
+    "node-watch": "^0.3.4"
   },
   "devDependencies": {}
 }

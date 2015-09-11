@@ -23,7 +23,7 @@ function getProcessor (processorKey) {
 
 function setProcessor (processorKey, processor) {
   processorsCache[processorKey] = processor;
-  return processors;
+  return processor;
 }
 
 function registerProcessor (methodName, processor, processAsBatch, requirements) {
@@ -32,28 +32,36 @@ function registerProcessor (methodName, processor, processAsBatch, requirements)
   }
 
   if( processAsBatch ) {
-    setProcessor(methodName, function (options) {
+    return setProcessor(methodName, function (options) {
       return new Files( processor(this, options) || [] );
     });
-  } else {
-    setProcessor(methodName, function () {
-      var files = new Files(), f;
-
-      for( var i = 0, n = this.length; i < n ; i++ ) {
-        f = this[i];
-        files[i] = new File('' + processor(f.src, f.fileName, f.filePath), f);
-      }
-
-      files.length = n;
-      return files;
-    });
   }
+
+  return setProcessor(methodName, function () {
+    var files = new Files(), f;
+
+    for( var i = 0, n = this.length; i < n ; i++ ) {
+      f = this[i];
+      files[i] = new File('' + processor(f.src, f.fileName, f.filePath), f);
+    }
+
+    files.length = n;
+    return files;
+  });
 }
 
 function addPreset (processorKey, processor, processAsBatch, requirements) {
   presets[processorKey] = function () {
-    registerProcessor(processorKey, processor, processAsBatch, requirements);
+    return registerProcessor(processorKey, processor, processAsBatch, requirements);
   };
+}
+
+function loadPreset (preset) {
+  if( !presets[preset] ) {
+    throw new Error('preset not found: ' + preset);
+  }
+
+  return presets[preset]();
 }
 
 function loadPresets () {
@@ -69,7 +77,7 @@ function loadPresets () {
 }
 
 Files.prototype.process = function (processorKey, options) {
-  var processor = processors.get(processorKey);
+  var processor = processors.get(processorKey) || loadPreset( processorKey );
 
   if( !processor ) {
     throw new Error('file processor missing: ' + processorKey);

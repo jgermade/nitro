@@ -46,6 +46,7 @@ _.extend(nitro, {
     return require('nitro-server').start.apply(this, arguments);
   },
   task: tasks.register,
+  watch: require('./watch'),
   run: function () {
     if( process.argv.length < 3 ) {
       console.error('needs at least 1 argument');
