@@ -1,8 +1,8 @@
 {
-  "name": "nitro-tools",
+  "name": "nitrox",
   "version": "1.1.6",
   "description": "node file and shell utils",
-  "main": "src/nitro.js",
+  "main": "lib/nitro.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
