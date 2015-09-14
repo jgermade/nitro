@@ -5,7 +5,7 @@ npm install nitro --save-dev
 ```
 
 ```js
-var nitro = require('nitro-tools');
+var nitro = require('nitro');
 
 nitro.cwd('src').load('*.{sass,scss}').process('sass').write('dist/assets/css');
 
