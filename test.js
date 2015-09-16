@@ -1,28 +1,18 @@
 
-// if( !Array.prototype.find ) {
-//   Array.prototype.find = function (iteratee) {
-//     if( !( iteratee instanceof Function ) ) {
-//       var value = iteratee;
-//       iteratee = function (item) {
-//         return item === value;
-//       };
-//     }
-//
-//     for( var i = 0, n = this.length ; i < n ; i++ ) {
-//       if( iteratee(this[i]) ) {
-//         return this[i];
-//       }
-//     }
-//   };
-// }
-//
-// var list = [1,2,3,4,5,6,7,8,9];
-//
-// console.log( list.find(function (n) { return n > 5; }) );
+// require('./lib/nitro').dir('lib')
+//   .expand([
+//     '{,**/}cwd.js',
+//     '{,**/}dir.js',
+//     '{,**/}file.js',
+//     '{,**/}*.js',
+//     '!{,**/}log.js'
+//   ]).forEach(function (filename) {
+//     console.log('found', filename);
+//   });
 
-// console.log('test', require('./lib/nitro').package('npm').dependencies().getList() );
+var nitro = require('./lib/nitro');
 
-
-require('./lib/nitro').package('npm').dependencies().each(function (dependence, version) {
-  console.log(dependence, version);
+nitro.timingLog('dist', function () {
+  nitro.dir('dist').remove();
+  nitro.package('npm').dependencies().copy('dist');
 });
