@@ -53,7 +53,7 @@ function needsInstall () {
     install.push('npm');
   }
 
-  if( missingDependencies( require('./bower'), dir.bower ) ) {
+  if( pathExists('./bower.json') && missingDependencies( require('./bower'), dir.bower ) ) {
     install.push('bower');
   }
 
