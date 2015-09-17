@@ -1,4 +1,5 @@
-# nitro-tools
+nitro [![wercker status](https://app.wercker.com/status/4518d69bc996c3a4b3e20249ccacb487/s/master "wercker status")](https://app.wercker.com/project/bykey/4518d69bc996c3a4b3e20249ccacb487)
+=================
 
 ```sh
 npm install nitro --save-dev
