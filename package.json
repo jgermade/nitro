@@ -4,7 +4,7 @@
   "description": "node file and shell utils",
   "main": "lib/nitro.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "make test"
   },
   "repository": {
     "type": "git",
