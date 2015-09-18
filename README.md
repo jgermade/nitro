@@ -1,10 +1,14 @@
 nitro [![wercker status](https://app.wercker.com/status/4518d69bc996c3a4b3e20249ccacb487/s/master "wercker status")](https://app.wercker.com/project/bykey/4518d69bc996c3a4b3e20249ccacb487)
 =================
 
+Installation
+------------
 ```sh
 npm install nitro --save-dev
 ```
 
+Usage
+-----
 ```js
 var nitro = require('nitro');
 
