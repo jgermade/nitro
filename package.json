@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/jstools/nitro.git"
+    "url": "git+ssh://git@github.com/nitrojs/nitro.git"
   },
   "keywords": [
     "node",
@@ -20,9 +20,9 @@
   "author": "Jesús Germade <jesus@germade.es>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jstools/nitro/issues"
+    "url": "https://github.com/nitrojs/nitro/issues"
   },
-  "homepage": "https://github.com/jstools/nitro#readme",
+  "homepage": "https://github.com/nitrojs/nitro#readme",
   "dependencies": {
     "colors": "^1.1.2",
     "deasync": "^0.1.1",
