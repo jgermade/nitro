@@ -1,7 +1,9 @@
 
 var nitro = require('./lib/nitro');
 
-process.stdout.write( nitro.package().increaseVersion('minor').version() );
+// process.stdout.write( nitro.package().increaseVersion('minor').version() );
+
+console.log( nitro.expand('{,**/}*.js') );
 
 // require('./lib/nitro').dir('lib')
 //   .expand([
