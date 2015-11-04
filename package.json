@@ -36,5 +36,8 @@
   },
   "devDependencies": {
     "mocha": "^2.3.2"
+  },
+  "autoRequire": {
+    "node-sass": "3.3.3"
   }
 }
