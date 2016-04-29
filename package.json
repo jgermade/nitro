@@ -1,6 +1,6 @@
 {
   "name": "nitro",
-  "version": "1.5.78",
+  "version": "1.6.0",
   "description": "node file and shell utils",
   "main": "lib/nitro.js",
   "scripts": {
@@ -39,7 +39,6 @@
     "mocha": "^2.4.5"
   },
   "autoRequire": {
-    "node-sass": "3.3.3",
     "livereload": "0.4.1"
   }
 }
