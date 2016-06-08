@@ -17,9 +17,17 @@ Quick Example
 ``` js
 var nitro = require('nitro');
 
-nitro.cwd('src').load('*.{sass,scss}').process('sass').write('dist/assets/css');
+nitro.dir('src').load('*.{sass,scss}')
+     .process('sass', {
+       autoprefix: true,// this options applies postCSS autoprefixer plugin
+       minify: true,    // this options applies postCSS cssnano plugin
+       groupmedia: true // this applies group-css-media-queries to resulting css
+     })
+     .write('dist/assets/css');
 
-nitro.cwd('src').load('*.{js}').process('uglify').write('dist/js');
+nitro.dir('src').load('*.{js}')
+     .process('uglify')
+     .write('dist/js');
 
 nitro.watch('src')
   .when('{,**/}*.{scss,sass}', function (filename) {
@@ -44,7 +52,7 @@ nitro.cwd('path/to/folder', function (cwd) {
 ```
 
 > nitro.exec()
-> allows execution of shell commands
+> allows syncronous execution of shell commands
 
 ``` js
 nitro.exec('ls -la');
