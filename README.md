@@ -238,6 +238,9 @@ nitro.task('live', ['dev'], function () {
 
 });
 
+// executing shell command
+nitro.run();
+
 ```
 
 > main options from terminal
