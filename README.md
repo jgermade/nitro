@@ -17,17 +17,17 @@ Quick Example
 ``` js
 var nitro = require('nitro');
 
-nitro.dir('src').load('*.{sass,scss}')
+nitro.dir('src').load('{,**/}*.{sass,scss}')
      .process('sass', {
        autoprefix: true,// this options applies postCSS autoprefixer plugin
        minify: true,    // this options applies postCSS cssnano plugin
        groupmedia: true // this applies group-css-media-queries to resulting css
      })
-     .write('dist/assets/css');
+     .write('public/assets/css');
 
-nitro.dir('src').load('*.{js}')
+nitro.dir('src').load('{,**/}*.js')
      .process('uglify')
-     .write('dist/js');
+     .write('public/js');
 
 nitro.watch('src')
   .when('{,**/}*.{scss,sass}', function (filename) {
@@ -174,4 +174,76 @@ filesList.writeFile('destination/folder/bundle.js');
 // or through:
 filesList.join('bundle.js').write('destination/folder');
 
+```
+
+Working with Tasks
+-------------
+``` js
+// file: make.js
+
+var nitro = require('nitro');
+
+nitro.task('sass', function (target) {
+
+  var dev = target === 'dev';
+
+  nitro.dir('src').load('{,**/}*.{sass,scss}')
+      .process('sass', {
+        autoprefix: true,// this options applies postCSS autoprefixer plugin
+        minify: !dev,    // this options applies postCSS cssnano plugin
+        groupmedia: true // this applies group-css-media-queries to resulting css
+      })
+      .write('public/assets/css');
+
+})
+
+nitro.task('js', function (target) {
+
+  var js = nitro.dir('src').load('{,**/}*.js');
+
+  if( target === 'dev' ) {
+    js = js.process('uglify').join('app.js');
+  }
+
+  js.write('public/js');
+
+});
+
+nitro.task('build', ['sass', 'js']);
+
+nitro.task('build-dev', ['sass:dev', 'js:dev']);
+
+nitro.task('watch', function () {
+
+  nitro.watch('src')
+    .when('{,**/}*.{scss,sass}', ['sass:dev'], function (filename) {
+      console.log('sass file', filename, 'has been changed');
+    })
+    .when('{,**/}*.js', ['js:dev'], function (filename) {
+      console.log('js file', filename, 'has been changed');
+    });
+
+});
+
+nitro.task('dev', ['build-dev', 'watch'], function () {
+  nitro.livereload('public', { port: 35729 });
+});
+
+nitro.task('live', ['dev'], function () {
+
+  nitro.server('public', {
+    livereload: { port: 35729 },
+    openInBrowser: true
+  });
+
+});
+
+```
+
+> main options from terminal
+
+``` sh
+node make dev
+node make live
+node make build
 ```
