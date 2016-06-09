@@ -1,4 +1,4 @@
-nitro [![Wercker](https://img.shields.io/wercker/ci/nitrojs/nitro.svg?maxAge=2592000)]() [![npm](https://img.shields.io/npm/v/nitro.svg?maxAge=2592000)]()
+nitro [![Wercker](https://img.shields.io/wercker/ci/nitrojs/nitro.svg?maxAge=2592000)](https://app.wercker.com/project/bykey/4518d69bc996c3a4b3e20249ccacb487) [![npm](https://img.shields.io/npm/v/nitro.svg?maxAge=2592000)]()
 =================
 
 About
