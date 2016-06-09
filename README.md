@@ -65,26 +65,28 @@ Files and Directories Processing
 
 ``` js
 
+var file = nitro.file;
+
 // returns true/false if file exists
-nitro.file.exists('path/to/file.txt');
+file.exists('path/to/file.txt');
 
 // returns file contents
-nitro.file.read('path/to/file.txt');
+file.read('path/to/file.txt');
 
 // returns JSON parsed file contents
-nitro.file.readJSON('path/to/file.json');
+file.readJSON('path/to/file.json');
 
 // writes contents to file
-nitro.file.write('path/to/file.txt', 'new content');
+file.write('path/to/file.txt', 'new content');
 
 // writes contents to file in JSON format indented by tabs
-nitro.file.writeJSON('path/to/file.json', { new: 'content' });
+file.writeJSON('path/to/file.json', { new: 'content' });
 
 // copies through fs stream file to destination
-nitro.file.copy('path/to/file.txt', 'destination/file.txt');
+file.copy('path/to/file.txt', 'destination/file.txt');
 
 // returns a function that matches specified filter (string or array of strings)
-nitro.file.filter(filter);
+file.filter(filter);
 
 ```
 
@@ -243,7 +245,7 @@ nitro.run();
 
 ```
 
-> main options from terminal
+> main options from shell
 
 ``` sh
 node make dev
