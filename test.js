@@ -7,7 +7,10 @@ var nitro = require('./lib/nitro');
 
 // console.log( process.env );
 
-nitro.github.release( 'v' + require('./package').version );
+// nitro.github.release( 'v' + require('./package').version, {
+nitro.github.release({
+	attach: ['test.js']
+});
 
 // require('./lib/nitro').dir('lib')
 //   .expand([
