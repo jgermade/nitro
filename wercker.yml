@@ -1,4 +1,4 @@
-box: emmenko/nodejs-karma
+box: nitrojs/node-karma
 # Build definition
 build:
   # The steps that will be executed on build

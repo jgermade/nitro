@@ -3,7 +3,14 @@ var nitro = require('./lib/nitro');
 
 // process.stdout.write( nitro.package().increaseVersion('minor').version() );
 
-console.log( nitro.expand('{,**/}*.js') );
+// console.log( nitro.dir('lib').expand('{,**/}*.js') );
+
+// console.log( process.env );
+
+// nitro.github.release( 'v' + require('./package').version, {
+nitro.github.release({
+	attach: ['test.js']
+});
 
 // require('./lib/nitro').dir('lib')
 //   .expand([
