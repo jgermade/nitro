@@ -9,9 +9,9 @@ var nitro = require('./lib/nitro');
 // nitro.load('tests/dummy/{,**/}*.js')
 // 	.process('uglify', { sourceMap: true })
 // 	.join('tests/dummy.js')
-nitro.load('tests/dummy/dummy.coffee')
+nitro.load('tests/dummy/dummy.coffee', { sourceMap: true })
 	.process('coffee-script')
-	.process('ng-annotate', { sourceMap: true })
+	// .process('ng-annotate')
 	// .process('browserify', { sourceMap: true })
 	.process('uglify')
 	.each(function (f) {
@@ -32,3 +32,10 @@ nitro.load('tests/dummy/dummy.coffee')
 // 		console.log(f.map);
 // 	})
 // 	.write('.tmp', { sourceMap: 'inline' });
+
+nitro.dir('.tmp/tests/dummy').load('dummy.js')
+	.each(function (f) {
+		console.log('path\n', f.path);
+		console.log('src\n', f.src);
+		console.log('map\n', f.map);
+	});
