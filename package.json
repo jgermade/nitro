@@ -26,9 +26,9 @@
   "dependencies": {
     "colors": "^1.1.2",
     "deasync": "^0.1.7",
-    "glob": "^7.0.5",
+    "glob": "^7.0.6",
     "js-yaml": "^3.6.1",
-    "minimatch": "^3.0.2",
+    "minimatch": "^3.0.3",
     "mkdirp": "^0.5.1",
     "nitro-server": "1.2.0",
     "nitro-template": "0.2.11",
@@ -36,7 +36,7 @@
     "node-watch": "^0.4.0"
   },
   "devDependencies": {
-    "mocha": "^3.0.0"
+    "mocha": "^3.0.2"
   },
   "autoRequire": {
     "livereload": "0.4.1"
