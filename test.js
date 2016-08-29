@@ -6,10 +6,10 @@ var nitro = require('./lib/nitro');
 // 	attach: ['test.js']
 // });
 
-// nitro.load('tests/{,**/}*.js')
+// nitro.load('tests/dummy/{,**/}*.js')
 // 	.process('uglify', { sourceMap: true })
-// 	.join('tests.js')
-nitro.load('tests/dummy.coffee')
+// 	.join('tests/dummy.js')
+nitro.load('tests/dummy/dummy.coffee')
 	.process('coffee-script')
 	.process('ng-annotate', { sourceMap: true })
 	// .process('browserify', { sourceMap: true })
@@ -21,7 +21,7 @@ nitro.load('tests/dummy.coffee')
 	})
 	.write('.tmp', { sourceMap: 'inline' });
 
-// nitro.load('tests/dummy.less')
+// nitro.load('tests/dummy/dummy.less')
 // 	.process('less', {
 // 		autoprefix: true,
 // 		sourceMap: true

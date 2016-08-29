@@ -1,4 +1,4 @@
-nitro [![Wercker](https://img.shields.io/wercker/ci/nitrojs/nitro.svg?maxAge=2592000)](https://app.wercker.com/project/bykey/4518d69bc996c3a4b3e20249ccacb487) [![npm](https://img.shields.io/npm/v/nitro.svg?maxAge=2592000)]()
+nitro [![wercker status](https://app.wercker.com/status/4518d69bc996c3a4b3e20249ccacb487/s "wercker status")](https://app.wercker.com/project/bykey/4518d69bc996c3a4b3e20249ccacb487) [![npm](https://img.shields.io/npm/v/nitro.svg?maxAge=2592000)]() [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/nitrojs/nitro/master/LICENSE) [![npm](https://img.shields.io/npm/dt/nitro.svg?maxAge=2592000)]()
 =================
 
 About
@@ -147,8 +147,8 @@ filesList.each(function (f) {
   // f is an instance of class File()
 
   console.log('filename', f.filename );
-  console.log('path', f.getPath() );
-  console.log('src', f.getSrc() );
+  console.log('path', f.path );
+  console.log('src', f.src );
 });
 
 // new loaded files (using same cwd) are appended to current list
