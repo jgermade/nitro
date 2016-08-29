@@ -19,7 +19,7 @@ nitro.load('tests/dummy/dummy.coffee', { sourceMap: true })
 		console.log(f.src);
 		console.log(f.map);
 	})
-	.write('.tmp', { sourceMap: 'inline' });
+	.write('.tmp');
 
 // nitro.load('tests/dummy/dummy.less')
 // 	.process('less', {
@@ -33,7 +33,7 @@ nitro.load('tests/dummy/dummy.coffee', { sourceMap: true })
 // 	})
 // 	.write('.tmp', { sourceMap: 'inline' });
 
-nitro.dir('.tmp/tests/dummy').load('dummy.js')
+nitro.dir('.tmp').load('tests/dummy/dummy.js')
 	.each(function (f) {
 		console.log('path\n', f.path);
 		console.log('src\n', f.src);
