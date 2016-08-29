@@ -1,4 +1,4 @@
-nitro [![wercker status](https://app.wercker.com/status/4518d69bc996c3a4b3e20249ccacb487/s "wercker status")](https://app.wercker.com/project/bykey/4518d69bc996c3a4b3e20249ccacb487) [![npm](https://img.shields.io/npm/v/nitro.svg?maxAge=2592000)]() [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/nitrojs/nitro/master/LICENSE) [![npm](https://img.shields.io/npm/dt/nitro.svg?maxAge=2592000)]()
+nitro [![wercker status](https://app.wercker.com/status/4518d69bc996c3a4b3e20249ccacb487/s "wercker status")](https://app.wercker.com/project/bykey/4518d69bc996c3a4b3e20249ccacb487) [![npm](https://img.shields.io/npm/v/nitro.svg?maxAge=2592000)](https://www.npmjs.com/package/nitro) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/nitrojs/nitro/master/LICENSE) [![npm](https://img.shields.io/npm/dt/nitro.svg?maxAge=2592000)](https://www.npmjs.com/package/nitro)
 =================
 
 About
