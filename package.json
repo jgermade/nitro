@@ -1,6 +1,6 @@
 {
   "name": "nitro",
-  "version": "1.9.9",
+  "version": "1.9.10",
   "description": "node file and shell utils",
   "main": "lib/nitro.js",
   "scripts": {
@@ -32,7 +32,7 @@
     "mkdirp": "^0.5.1",
     "nitro-server": "1.2.0",
     "nitro-template": "0.2.11",
-    "nitro-tools": "0.2.2",
+    "nitro-tools": "0.2.3",
     "node-watch": "^0.4.0"
   },
   "devDependencies": {
