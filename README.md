@@ -1,19 +1,21 @@
-nitro [![wercker status](https://app.wercker.com/status/4518d69bc996c3a4b3e20249ccacb487/s "wercker status")](https://app.wercker.com/project/bykey/4518d69bc996c3a4b3e20249ccacb487) [![npm](https://img.shields.io/npm/v/nitro.svg?maxAge=2592000)](https://www.npmjs.com/package/nitro) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/nitrojs/nitro/master/LICENSE) [![npm](https://img.shields.io/npm/dt/nitro.svg?maxAge=2592000)](https://www.npmjs.com/package/nitro)
-=================
+# nitro
 
-About
-------------
+<img src="https://avatars1.githubusercontent.com/u/14299087?v=3&s=200" width="100px" align="right"/>
+
 nitro was developed to provide an easy build system for modern languages stack like,
 sass, less, coffeescript, or custom stuff through syncronous but fast processing
 
-Installation
-------------
+[![npm](https://img.shields.io/npm/v/nitro.svg?maxAge=2592000)](https://www.npmjs.com/package/nitro) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/kiltjs/nitro/master/LICENSE) [![wercker status](https://app.wercker.com/status/4518d69bc996c3a4b3e20249ccacb487/s "wercker status")](https://app.wercker.com/project/bykey/4518d69bc996c3a4b3e20249ccacb487) [![npm](https://img.shields.io/npm/dt/nitro.svg?maxAge=2592000)](https://www.npmjs.com/package/nitro)
+
+
+### Installation
+
 ``` sh
 npm install nitro --save-dev
 ```
 
-Quick Example
--------------
+### Quick Example
+
 ``` js
 var nitro = require('nitro');
 
@@ -40,8 +42,7 @@ nitro.watch('src')
 
 ```
 
-Basics
-------
+### Basics
 
 > nitro.cwd()
 
@@ -58,8 +59,7 @@ nitro.cwd('path/to/folder', function (cwd) {
 nitro.exec('ls -la');
 ```
 
-Files and Directories Processing
---------------------------------
+### Files and Directories Processing
 
 > nitro.file
 
@@ -178,8 +178,8 @@ filesList.join('bundle.js').write('destination/folder');
 
 ```
 
-Working with Tasks
--------------
+### Working with Tasks
+
 ``` js
 // file: make.js
 
