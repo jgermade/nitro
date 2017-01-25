@@ -41,4 +41,4 @@ var nitro = require('./lib/nitro');
 // 	});
 
 // nitro.watch('lib', { livereload: 12345 });
-nitro.livereload('lib', { port: 12345 });
+nitro.livereload('lib', { port: 12345, highlight: false });
