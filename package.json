@@ -1,6 +1,6 @@
 {
   "name": "nitro",
-  "version": "1.12.11",
+  "version": "1.12.12",
   "description": "node file and shell utils",
   "main": "lib/nitro.js",
   "scripts": {
@@ -35,7 +35,6 @@
     "minimatch": "^3.0.3",
     "mkdirp": "^0.5.1",
     "nitro-tools": "0.2.4",
-    "node-watch": "^0.4.1",
     "open": "0.0.5",
     "parole": "^1.0.1",
     "trisquel": "^1.0.3",
