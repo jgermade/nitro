@@ -6,20 +6,20 @@ var nitro = require('./lib/nitro');
 // 	attach: ['test.js']
 // });
 
-// nitro.load('tests/dummy/{,**/}*.js')
-// 	.process('uglify', { sourceMap: true })
-// 	.join('tests/dummy.js')
-nitro.load('tests/dummy/dummy.coffee', { sourceMap: true })
-	.process('coffee-script')
-	// .process('ng-annotate')
-	// .process('browserify', { sourceMap: true })
-	.process('uglify')
-	.each(function (f) {
-		console.log(f.path);
-		console.log(f.src);
-		console.log(f.map);
-	})
-	.write('.tmp');
+// // nitro.load('tests/dummy/{,**/}*.js')
+// // 	.process('uglify', { sourceMap: true })
+// // 	.join('tests/dummy.js')
+// nitro.load('tests/dummy/dummy.coffee', { sourceMap: true })
+// 	.process('coffee-script')
+// 	// .process('ng-annotate')
+// 	// .process('browserify', { sourceMap: true })
+// 	.process('uglify')
+// 	.each(function (f) {
+// 		console.log(f.path);
+// 		console.log(f.src);
+// 		console.log(f.map);
+// 	})
+// 	.write('.tmp');
 
 // nitro.load('tests/dummy/dummy.less')
 // 	.process('less', {
@@ -33,9 +33,14 @@ nitro.load('tests/dummy/dummy.coffee', { sourceMap: true })
 // 	})
 // 	.write('.tmp', { sourceMap: 'inline' });
 
-nitro.dir('.tmp').load('tests/dummy/dummy.js')
-	.each(function (f) {
-		console.log('path\n', f.path);
-		console.log('src\n', f.src);
-		console.log('map\n', f.map);
-	});
+// nitro.dir('.tmp').load('tests/dummy/dummy.js')
+// 	.each(function (f) {
+// 		console.log('path\n', f.path);
+// 		console.log('src\n', f.src);
+// 		console.log('map\n', f.map);
+// 	});
+
+nitro.watch('tests', function (filename, meta) {
+  console.log('changed', filename, meta);
+});
+nitro.livereload('lib', { port: 12345, highlight: false });
