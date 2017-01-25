@@ -1,6 +1,6 @@
 {
   "name": "nitro",
-  "version": "1.12.20",
+  "version": "1.12.24",
   "description": "node file and shell utils",
   "main": "lib/nitro.js",
   "scripts": {
@@ -28,7 +28,6 @@
   },
   "dependencies": {
     "chokidar": "^1.6.1",
-    "colors": "~1.1.2",
     "deasync": "~0.1.9",
     "glob": "~7.1.1",
     "js-yaml": "~3.7.0",
