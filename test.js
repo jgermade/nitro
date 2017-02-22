@@ -40,7 +40,20 @@ var nitro = require('./lib/nitro');
 // 		console.log('map\n', f.map);
 // 	});
 
-nitro.watch('tests', function (filename, meta) {
-  console.log('changed', filename, meta);
+nitro.task('coffee', function () {
+  console.log('task:coffee', arguments);
 });
+
+nitro.task('all', function () {
+  console.log('task:all', arguments);
+});
+
+nitro.watch('tests', ['all:dev'], function (filename, meta) {
+  console.log('changed', filename, meta);
+}).when('{,**/}*.js', function (filename, meta) {
+  console.log('js', filename, meta);
+}).when('{,**/}*.coffee', ['coffee:dev'], function (filename, meta) {
+  console.log('coffee', filename, meta);
+});
+
 nitro.livereload('lib', { port: 12345, highlight: false });
