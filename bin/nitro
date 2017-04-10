@@ -1,0 +1,18 @@
+#!/usr/bin/env node
+
+'use strict';
+
+process.title = 'nitro';
+
+var nitro = require('../lib/nitro');
+
+if( process.argv.length < 3 ) {
+  console.error('needs at least 1 argument');
+  process.exit(1);
+}
+
+console.log('arguments',  process.argv );
+
+if( process.argv[2] === 'tasks' ) {
+  nitro.import(process.argv[3]).run();
+}
