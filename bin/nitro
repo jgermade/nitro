@@ -4,15 +4,52 @@
 
 process.title = 'nitro';
 
-var nitro = require('../lib/nitro');
+var nitro = require('../lib/nitro'),
+    color = require('../lib/color'),
+    args = [].slice.call(process.argv, 2),
+    Parole = require('parole');
 
-if( process.argv.length < 3 ) {
+if( args.length < 1 ) {
   console.error('needs at least 1 argument');
-  process.exit(1);
+  process.exit(2);
 }
 
-console.log('arguments',  process.argv );
+// console.log('arguments',  args );
 
-if( process.argv[2] === 'tasks' ) {
-  nitro.import(process.argv[3]).run();
+function runNextArgument( result ) {
+  if( result && typeof result.then === 'function' ) {
+    result.then(function () {
+      runNextArgument(runArgument());
+    });
+  } else runNextArgument(runArgument());
 }
+
+function runArgument () {
+  var cmd = args.shift();
+
+  if( !cmd ) process.exit(0);
+
+  switch( cmd ) {
+    case 'import':
+      return nitro.import(args.shift());
+    case '-r':
+    case 'run':
+      return nitro.run(args.shift() || []);
+    case '-p':
+    case 'process':
+      var presetName = args.shift(),
+          src = args.shift(),
+          dest = args.shift(),
+          startTime = Date.now(),
+          result = nitro.dir(src).load('{,**/}*.*').process(presetName).write(dest);
+      console.log('\n' + color.green(presetName) + ' ' + src + ' ' + color.cyan(dest) + ' ' + color.yellow( ( Date.now() - startTime ) + 'ms' ) + '\n' );
+      return result;
+    default:
+      console.error(color.yellow('\ncommand ') + cmd + color.red(' not defined\n') );
+      process.exit(2);
+  }
+}
+
+runNextArgument( runArgument() );
+
+// if( args === 'tasks' ) nitro.import(args[3]);
