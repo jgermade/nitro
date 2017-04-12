@@ -16,12 +16,14 @@ describe('Tasks', function() {
     assert(!pristine);
   });
 
-  it('task nested', function () {
+  it('task nested', function (done) {
     var counter = 0, steps = [];
 
-    nitro.task('test-dependence', function () {
+    nitro.task('test-dependence', function (target, nextTask) {
       counter++;
       steps.push(1);
+
+      setTimeout(nextTask, 10);
     });
 
     nitro.task('test-nested', ['test-dependence'], function () {
@@ -33,7 +35,7 @@ describe('Tasks', function() {
 
       assert.equal(counter, 2);
       assert.equal(steps.join(','), '1,2');
-
+      done();
     });
 
   });
