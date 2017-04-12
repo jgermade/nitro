@@ -17,19 +17,25 @@ describe('Tasks', function() {
   });
 
   it('task nested', function () {
-    var counter = 0;
+    var counter = 0, steps = [];
 
     nitro.task('test-dependence', function () {
       counter++;
+      steps.push(1);
     });
 
     nitro.task('test-nested', ['test-dependence'], function () {
       counter++;
+      steps.push(2);
     });
 
-    nitro.task('test-nested');
+    nitro.task('test-nested').then(function () {
 
-    assert.equal(counter, 2);
+      assert.equal(counter, 2);
+      assert.equal(steps.join(','), '1,2');
+
+    });
+
   });
 
 });
