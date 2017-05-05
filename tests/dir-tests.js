@@ -15,7 +15,18 @@ describe('dir.load()', function() {
       return f.path;
     }).join(', '), 'dummy/dummy.coffee, dummy/dummy.js, dummy/dummy.less, dummy/dummy.sass' );
   });
-//
+
+  it('.path (specific order)', function () {
+    assert.strictEqual( nitro.dir('tests').load([
+      'dummy/*',
+      '!dummy/dummy.{js,coffee}',
+      'dummy/dummy.js',
+      'dummy/*',
+    ]).map(function (f) {
+      return f.path;
+    }).join(', '), 'dummy/dummy.less, dummy/dummy.sass, dummy/dummy.js, dummy/dummy.coffee' );
+  });
+
   it('.src', function () {
     assert.strictEqual( nitro.dir('tests').load('dummy/*').map(function (f) {
       return f.src;
