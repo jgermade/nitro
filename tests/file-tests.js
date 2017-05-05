@@ -1,4 +1,4 @@
-/* globals describe, it, expect, beforeEach */
+/* global describe, it */
 
 var assert = require('assert'),
     nitro = require('../lib/nitro'),

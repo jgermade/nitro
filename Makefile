@@ -10,7 +10,7 @@ git_branch := $(shell git rev-parse --abbrev-ref HEAD)
 install:
 	npm install
 
-test: install
+test:
 	@$(npmdir)/mocha tests
 
 npm.publish:
@@ -28,7 +28,7 @@ github.release:
 	@echo ${RELEASE_URL}
 	@true
 
-release: test npm.publish github.release
+release: install test npm.publish github.release
 
 # DEFAULT TASKS
 
