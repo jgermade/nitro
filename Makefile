@@ -14,8 +14,10 @@ test:
 	@$(npmdir)/mocha tests
 
 npm.publish:
+	git pull --tags
 	npm version patch
-	git push origin $(git_branch) && git push --tags
+	git push origin $(git_branch)
+	git push --tags
 	npm publish
 	@echo "published ${PKG_VERSION}"s
 
