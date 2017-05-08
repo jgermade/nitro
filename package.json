@@ -46,8 +46,7 @@
     "mocha": "~3.3.0"
   },
   "autoRequire": {
-    "livereload": "0.6.0",
     "node-sass": "4.3.0",
-    "uglify-js": "2.8.23"
+    "uglify-js": "2.x"
   }
 }
