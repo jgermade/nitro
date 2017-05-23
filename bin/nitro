@@ -6,8 +6,8 @@ process.title = 'nitro';
 
 var nitro = require('../lib/nitro'),
     color = require('../lib/color'),
-    args = [].slice.call(process.argv, 2),
-    Parole = require('parole');
+    args = [].slice.call(process.argv, 2);
+    // Parole = require('parole');
 
 if( args.length < 1 ) {
   console.error('needs at least 1 argument');
