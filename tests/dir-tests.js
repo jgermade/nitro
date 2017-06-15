@@ -45,8 +45,8 @@ describe('dir.load()', function() {
     }).join('\n'), readFile('tests/dummy/dummy.coffee') + '\n' + readFile('tests/dummy/dummy.js') );
   });
 
-  it('.width().path', function () {
-    assert.strictEqual( nitro.dir('tests').load('dummy/*').with('{,**/}*.{js,coffee}', function (f) {
+  it('.each().path', function () {
+    assert.strictEqual( nitro.dir('tests').load('dummy/*').each('{,**/}*.{js,coffee}', function (f) {
       f.path += '_';
     }).map(function (f) {
       return f.path;
