@@ -161,14 +161,12 @@ filesList.load('{,**/}*.coffee');
   // or to: nitro.dir('src').load(['{,**/}*.js', '{,**/}*.coffee'])
 
 
-// you can work with a subset of files and if a new list is returned,
-// files will be extracted from initial list and appended to remaining files
-filesList.with('{,**/}*.coffee', function (coffeeFiles) {
-  coffeeFiles.process('coffee-script');
-});
-
 // this applies to both js as compiled coffee to js
 filesList.process('uglify');
+
+// you can work with a subset of files and if a new list is returned,
+// files will be extracted from initial list and appended to remaining files
+filesList.process('{,**/}*.coffee', 'coffee-script');
 
 // writes files in defined folder
 filesList.write('destination/folder');
