@@ -1,6 +1,6 @@
 {
   "name": "nitro",
-  "version": "2.0.42",
+  "version": "2.1.0",
   "description": "node file and shell utils",
   "main": "lib/nitro.js",
   "bin": {
@@ -47,6 +47,6 @@
   },
   "autoRequire": {
     "node-sass": "4.3.0",
-    "uglify-js": "2.x"
+    "uglify-js": "3.x"
   }
 }
