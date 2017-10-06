@@ -9,7 +9,7 @@ describe('cwd', function() {
   it('.exists()', function () {
 
     cwd('tests', function () {
-      assert.ok( nitro.file.exists('./cwd-tests.js') );
+      assert.strictEqual(process.cwd(), __dirname);
     });
 
   });
