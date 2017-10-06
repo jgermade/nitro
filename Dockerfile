@@ -1,6 +1,9 @@
 FROM nitrojs/node-karma AS builder
 
-WORKDIR /
+ADD ["package.json", "./"]
+RUN npm install
+
+ADD . ./
 
 # Installing all dependencies
 RUN npm install
