@@ -58,6 +58,14 @@ describe('joinPaths', function() {
       result: 'foo/bar/foobar/subdir/file.ext',
       paths: ['foo/bar/', './foobar/subdir/file.ext'],
     },
+    {
+      result: 'foo/bar/',
+      paths: ['./foo/bar/'],
+    },
+    {
+      result: 'foo/bar',
+      paths: ['./foo/bar'],
+    },
   ];
 
   test_paths.forEach(function (test) {
