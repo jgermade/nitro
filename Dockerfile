@@ -1,4 +1,4 @@
-FROM node:8.0-alpine AS builder
+FROM nitrojs/node-karma AS builder
 
 # Installing all dependencies
 RUN npm install
