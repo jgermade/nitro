@@ -30,20 +30,20 @@
     "lib": "./lib"
   },
   "dependencies": {
-    "chokidar": "^1.6.1",
-    "deasync": "~0.1.9",
-    "js-yaml": "~3.8.3",
-    "mime": "~1.3.4",
-    "minimatch": "~3.0.3",
-    "mkdirp": "~0.5.1",
+    "chokidar": "1.7.0",
+    "deasync": "0.1.10",
+    "js-yaml": "3.10.0",
+    "mime": "2.0.3",
+    "minimatch": "3.0.4",
+    "mkdirp": "0.5.1",
     "nitro-tools": "0.2.4",
     "open": "0.0.5",
-    "parole": "~1.1.5",
-    "trisquel": "~1.0.27",
-    "ws": "^2.2.3"
+    "parole": "1.1.5",
+    "trisquel": "1.0.27",
+    "ws": "3.2.0"
   },
   "devDependencies": {
-    "mocha": "~3.3.0"
+    "mocha": "4.0.0"
   },
   "autoRequire": {
     "node-sass": "4.3.0",
