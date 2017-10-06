@@ -66,6 +66,14 @@ describe('joinPaths', function() {
       result: 'foo/bar',
       paths: ['./foo/bar'],
     },
+    {
+      result: 'foo/bar/',
+      paths: ['.', './foo/bar/'],
+    },
+    {
+      result: 'foo/bar',
+      paths: ['.', './foo/bar'],
+    },
   ];
 
   test_paths.forEach(function (test) {
