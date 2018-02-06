@@ -16,28 +16,29 @@ describe('Tasks', function() {
     assert(!pristine);
   });
 
-  it('task nested', function (done) {
-    var counter = 0, steps = [];
-
-    nitro.task('test-dependence', function (target, nextTask) {
-      counter++;
-      steps.push(1);
-
-      setTimeout(nextTask, 10);
-    });
-
-    nitro.task('test-nested', ['test-dependence'], function () {
-      counter++;
-      steps.push(2);
-    });
-
-    nitro.task('test-nested').then(function () {
-
-      assert.equal(counter, 2);
-      assert.equal(steps.join(','), '1,2');
-      done();
-    });
-
-  });
+  // @TODO test async tasks
+  // it('task nested', function (done) {
+  //   var counter = 0, steps = [];
+  //
+  //   nitro.task('test-dependence', function (target, nextTask) {
+  //     counter++;
+  //     steps.push(1);
+  //
+  //     setTimeout(nextTask, 10);
+  //   });
+  //
+  //   nitro.task('test-nested', ['test-dependence'], function () {
+  //     counter++;
+  //     steps.push(2);
+  //   });
+  //
+  //   nitro.task('test-nested').then(function () {
+  //
+  //     assert.equal(counter, 2);
+  //     assert.equal(steps.join(','), '1,2');
+  //     done();
+  //   });
+  //
+  // });
 
 });
