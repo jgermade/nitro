@@ -39,7 +39,7 @@
     "nitro-tools": "0.2.4",
     "open": "0.0.5",
     "parole": "1.1.5",
-    "trisquel": "1.1.4",
+    "trisquel": "1.1.5",
     "ws": "4.0.0"
   },
   "devDependencies": {
