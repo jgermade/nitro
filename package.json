@@ -44,9 +44,5 @@
   },
   "devDependencies": {
     "mocha": "5.2.0"
-  },
-  "autoRequire": {
-    "node-sass": "4.10.0",
-    "uglify-js": "3.x"
   }
 }
