@@ -1,6 +1,6 @@
 {
   "name": "nitro",
-  "version": "2.2.26",
+  "version": "2.2.27",
   "description": "node file and shell utils",
   "main": "lib/nitro.js",
   "bin": {
