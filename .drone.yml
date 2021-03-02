@@ -1,0 +1,10 @@
+
+kind: pipeline
+name: node12
+
+steps:
+- name: test
+  image: node:12
+  commands:
+  - npm install
+  - make test
