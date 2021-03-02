@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "module": "system",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "strictNullChecks": true,
+    "sourceMap": true
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules"]
+}
