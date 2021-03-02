@@ -1,12 +1,12 @@
 /* eslint-disable import/first */
 
+jest.mock('mkdirp')
+
 import mkdirp from 'mkdirp'
 import {
   cwdPath,
   mkdirP,
 } from './fsfile'
-
-jest.mock('mkdirp')
 
 const cwd = process.cwd()
 
@@ -29,8 +29,6 @@ describe('cwdPath', () => {
 
 describe('mkdirP', () => {
   test('invocation', async () => {
-  // mkdirp.mockReturnValue(Promise.resolve())
-
     await mkdirP('foo/bar')
 
     expect(mkdirp).toHaveBeenCalledTimes(1)
