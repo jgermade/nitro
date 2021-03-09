@@ -13,6 +13,8 @@ export async function _matchFilesReducer (patterns: string[], options?: object, 
   if (pattern === undefined) return matchedFiles
 
   if (/^!/.test(pattern)) {
+    if (i === 0) throw new Error(`Can not start with an exclusion pattern '${pattern}'`)
+
     const excludeFiles = minimatch.filter(pattern)
 
     return await _matchFilesReducer(
@@ -25,9 +27,10 @@ export async function _matchFilesReducer (patterns: string[], options?: object, 
 
   const _matchedFiles = await execGlob(pattern, options)
 
-  _matchedFiles.forEach(file_path => {
-    if (!matchedFiles.includes(file_path)) matchedFiles.push(file_path)
-  })
+  _matchedFiles.forEach(i > 0
+    ? file_path => { if (!matchedFiles.includes(file_path)) matchedFiles.push(file_path) }
+    : file_path => matchedFiles.push(file_path)
+  )
 
   return await _matchFilesReducer(patterns, options, i + 1, matchedFiles)
 }
