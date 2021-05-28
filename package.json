@@ -40,7 +40,7 @@
     "open": "6.3.0",
     "parole": "1.1.30",
     "trisquel": "1.1.5",
-    "ws": "7.0.0"
+    "ws": "7.4.6"
   },
   "devDependencies": {
     "mocha": "6.1.4"
